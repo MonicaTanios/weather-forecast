@@ -7,10 +7,8 @@ import { WeatherApiService } from '../weather-api.service';
   styleUrls: ['./local-weather.component.css']
 })
 export class LocalWeatherComponent implements OnInit {
-  longitude: any;
-  latitude: any;
-  constructor(private weatherApi: WeatherApiService) {
-   }
+  public weatherData: any;
+  constructor(private weatherApi: WeatherApiService) {}
 
   ngOnInit(): void {
     this.sendToAPI();
@@ -20,7 +18,10 @@ export class LocalWeatherComponent implements OnInit {
     // Get user current location & Get Weather
     var location = this.getPosition();
     location.then((res) => {
-      this.weatherApi.getWeather(res.lng, res.lat)
+      this.weatherApi.getWeather(res.lng, res.lat).subscribe(data => {
+        this.weatherData = data;
+        console.log(this.weatherData);
+      });
     })
   }
 

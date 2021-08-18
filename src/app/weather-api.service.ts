@@ -15,6 +15,5 @@ export class WeatherApiService {
       + environment.apiKey +'&q=' + latitude + ',' + longitude 
       + '&num_of_days=2&tp=3&format=json',
     )
-    .toPromise().then(text => console.log(text))
   }
 }
