@@ -8,7 +8,13 @@ import { WeatherApiService } from '../weather-api.service';
 })
 export class LocalWeatherComponent implements OnInit {
   public weatherData: any;
-  constructor(private weatherApi: WeatherApiService) {}
+  public day: any;
+  constructor(private weatherApi: WeatherApiService) {
+    let now = new Date();
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      
+    this.day = days[now.getDay()];
+  }
 
   ngOnInit(): void {
     this.sendToAPI();
@@ -21,6 +27,7 @@ export class LocalWeatherComponent implements OnInit {
       this.weatherApi.getWeather(res.lng, res.lat).subscribe(data => {
         this.weatherData = data;
         console.log(this.weatherData);
+        console.log(this.weatherData?.data.weather[0].date);
       });
     })
   }

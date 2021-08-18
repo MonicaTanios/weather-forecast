@@ -8,6 +8,7 @@ import { LocalWeatherComponent } from './local-weather/local-weather.component';
 import { allAppRoutes } from './routes';
 import { WeatherApiService } from './weather-api.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     RouterModule.forRoot(allAppRoutes),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [WeatherApiService],
   bootstrap: [AppComponent]
