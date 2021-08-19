@@ -1,0 +1,23 @@
+#brand-logo {
+    font-size: 34px
+}
+
+#app-navbar {
+    background: linear-gradient(120deg, rgb(26, 155, 217), rgb(163, 217, 244))
+}
+
+p {
+    font-size: 150%;
+    font-weight: 500;
+    color: white;
+}
+
+i {
+    color: white;
+    font-size: 2rem;
+}
+
+.navcol-1 {
+    float: right;
+    
+}

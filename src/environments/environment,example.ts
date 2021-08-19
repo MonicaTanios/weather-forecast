@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
-    apiKey: ""
-  };
-  
+  production: false,
+  weatherApiKey: "",
+  locationIqApiKey: ""
+};

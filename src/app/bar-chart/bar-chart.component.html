@@ -1,0 +1,5 @@
+<h3>Choose city</h3>
+<select class="form-select" [ngModel]="selectedCity" (ngModelChange)="onChange($event)" name="sel2">
+    <option *ngFor="let choice of this.cities">{{choice}}</option>
+</select>
+<figure id="bar"></figure>

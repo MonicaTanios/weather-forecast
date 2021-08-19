@@ -9,11 +9,19 @@ export class WeatherApiService {
 
   constructor(private http: HttpClient) { }
 
-  getWeather(longitude: any, latitude: any){
+  getWeatherByLongLat(longitude: any, latitude: any){    
     return this.http.get(
       'http://api.worldweatheronline.com/premium/v1/weather.ashx?key='
-      + environment.apiKey +'&q=' + latitude + ',' + longitude 
+      + environment.weatherApiKey +'&q=' + latitude + ',' + longitude 
       + '&num_of_days=2&tp=3&format=json',
+    )
+  }
+
+  getWeatherByCity(city: any) {
+    return this.http.get(
+      'http://api.worldweatheronline.com/premium/v1/weather.ashx?key='
+      + environment.weatherApiKey +'&q=' + city
+      + '&fx=no&cc=no&mca=yes&format=json',
     )
   }
 }
