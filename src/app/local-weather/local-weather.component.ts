@@ -12,7 +12,7 @@ export class LocalWeatherComponent implements OnInit {
   public day: any;
   public country: any;
   public city: any;
-  public neighbourhood: any;
+  public neighborhood: any;
   public display_name: any;
 
   constructor(private weatherApi: WeatherApiService) {
@@ -66,7 +66,7 @@ export class LocalWeatherComponent implements OnInit {
             this.city = response.address.city; 
             this.country = response.address.country;
             this.display_name = response.display_name;
-            this.neighbourhood = response.address.neighbourhood;
+            this.neighborhood = response.address.neighbourhood;
             return;
         }
     }

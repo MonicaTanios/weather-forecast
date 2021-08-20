@@ -10,14 +10,14 @@ import { WeatherApiService } from './weather-api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavbarComponent } from './navbar/navbar.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LocalWeatherComponent,
     NavbarComponent,
-    BarChartComponent
+    ScatterPlotComponent
   ],
   imports: [
     BrowserModule,
