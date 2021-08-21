@@ -5,7 +5,7 @@ import { WeatherApiService } from '../weather-api.service';
 @Component({
   selector: 'app-local-weather',
   templateUrl: './local-weather.component.html',
-  styleUrls: ['./local-weather.component.css']
+  styleUrls: ['./local-weather.component.css'],
 })
 export class LocalWeatherComponent implements OnInit {
   public weatherData: any;
@@ -17,8 +17,16 @@ export class LocalWeatherComponent implements OnInit {
 
   constructor(private weatherApi: WeatherApiService) {
     let now = new Date();
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-      
+    var days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+
     this.day = days[now.getDay()];
   }
 
@@ -30,49 +38,53 @@ export class LocalWeatherComponent implements OnInit {
     // Get user current location & Get Weather
     var location = this.getPosition();
     location.then((res) => {
-      this.weatherApi.getWeatherByLongLat(res.lng, res.lat).subscribe(data => {
-        this.weatherData = data;
-        console.log(this.weatherData);
-      });
+      this.weatherApi
+        .getWeatherByLongLat(res.lng, res.lat)
+        .subscribe((data) => {
+          this.weatherData = data;
+        });
       this.getCityAndCountry(res.lng, res.lat);
-    })
+    });
   }
 
-  getPosition(): Promise<any>
-  {
+  getPosition(): Promise<any> {
     return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resp => {
-        console.log(resp);
-          resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
+      navigator.geolocation.getCurrentPosition(
+        (resp) => {
+          resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
         },
-        err => {
+        (err) => {
           reject(err);
-        },);
+        }
+      );
     });
-
   }
 
   getCityAndCountry(longitude: any, latitude: any) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "https://us1.locationiq.com/v1/reverse.php?key=" 
-    + environment.locationIqApiKey + "&lat=" 
-    + latitude + "&lon=" + longitude + "&format=json", true);
+    xhr.open(
+      'GET',
+      'https://us1.locationiq.com/v1/reverse.php?key=' +
+        environment.locationIqApiKey +
+        '&lat=' +
+        latitude +
+        '&lon=' +
+        longitude +
+        '&format=json',
+      true
+    );
     xhr.send();
     const processRequest = () => {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var response = JSON.parse(xhr.responseText);
-            console.log("response")
-            console.log(response)
-            this.city = response.address.city; 
-            this.country = response.address.country;
-            this.display_name = response.display_name;
-            this.neighborhood = response.address.neighbourhood;
-            return;
-        }
-    }
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText);
+        this.city = response.address.city;
+        this.country = response.address.country;
+        this.display_name = response.display_name;
+        this.neighborhood = response.address.neighbourhood;
+        return;
+      }
+    };
     xhr.onreadystatechange = processRequest;
-    xhr.addEventListener("readystatechange", processRequest, false);
-  
-}
-
+    xhr.addEventListener('readystatechange', processRequest, false);
+  }
 }
