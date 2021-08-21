@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { WeatherApiService } from '../weather-api.service';
 
@@ -10,7 +10,7 @@ import { WeatherApiService } from '../weather-api.service';
 export class LocalWeatherComponent implements OnInit {
   public weatherData: any;
   public day: any;
-  public country: any;
+  @Output() country: string = '';
   public city: any;
   public neighborhood: any;
   public display_name: any;

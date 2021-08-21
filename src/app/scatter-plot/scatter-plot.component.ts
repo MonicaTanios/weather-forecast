@@ -1,13 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Month } from '../models/month';
-import { WeatherApiService } from '../weather-api.service';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
+  ViewRef,
+} from '@angular/core';
 import * as d3 from 'd3';
+import * as d3Axis from 'd3';
 import * as d3Scale from 'd3';
 import * as d3Shape from 'd3';
-import * as d3Array from 'd3';
-import * as d3Axis from 'd3';
-import { max } from 'd3';
-import { LocalWeatherComponent } from '../local-weather/local-weather.component';
+
+import { Month } from '../models/month';
+import { WeatherApiService } from '../weather-api.service';
 
 @Component({
   selector: 'app-scatter-plot',
@@ -15,16 +21,19 @@ import { LocalWeatherComponent } from '../local-weather/local-weather.component'
   styleUrls: ['./scatter-plot.component.css'],
 })
 export class ScatterPlotComponent implements OnInit {
-  public data: Array<Month> = [];
+  @Input() country: string = '';
+  @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
+  @Output() data: Month[] = [];
   private svg: any;
   private margin = 50;
   private width = 750 - this.margin * 2;
   private height = 400 - this.margin * 2;
-  public selectedCity: any;
+  public selectedCity: string = '';
   public cities: string[] = [];
   private x: any;
   private y: any;
   private line!: d3Shape.Line<[number, number]>;
+  childViewRef!: ViewRef;
 
   constructor(private weatherApi: WeatherApiService) {}
 
@@ -39,11 +48,7 @@ export class ScatterPlotComponent implements OnInit {
     ).then((response) => response.json());
     const { data } = response;
     data.forEach((country: any) => {
-      console.log('ANA COUNTRY');
-      // console.log(LocalWeatherComponent.count)
-      // TODO: Get Country from local weather component
-      // if (country.country == LocalWeatherComponent.countryName()) {
-      if (country.country == 'Egypt') {
+      if (country.country == this.country) {
         this.cities = country.cities;
       }
     });
@@ -65,7 +70,7 @@ export class ScatterPlotComponent implements OnInit {
         );
       });
     });
-    // Keep only new data (Last 12 months)
+    // Keep only new data (Last 12 items)
     this.data.splice(0, this.data.length - 12);
     // Clear The Chart & Rebuild it
     d3.selectAll('svg > *').remove();

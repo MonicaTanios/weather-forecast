@@ -1,6 +1,7 @@
 <h3>Choose city</h3>
-<select class="form-select" [ngModel]="selectedCity" (ngModelChange)="onChange($event)" name="sel2">
+<select [ngModel]="selectedCity" class="form-select" (ngModelChange)="onChange($event)" name="sel2">
     <option *ngFor="let choice of this.cities">{{choice}}</option>
 </select>
 <br />
-<svg width="900" height="500"></svg>
+<svg *ngIf="data.length != 0" width="900" height="500"></svg>
+<app-mat-table *ngIf="data.length != 0" [data]="data"></app-mat-table>

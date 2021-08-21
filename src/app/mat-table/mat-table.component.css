@@ -1,0 +1,12 @@
+.mat-table {
+  overflow-x: scroll;
+  max-width: 99%;
+}
+
+.mat-cell,
+.mat-header-cell {
+  padding: 0px 1rem;
+  max-width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+}
