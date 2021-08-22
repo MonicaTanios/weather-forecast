@@ -14,6 +14,7 @@ import { WeatherApiService } from '../weather-api.service';
 export class ScatterPlotComponent implements OnInit {
   @Input() country: string = '';
   @Output() data: Month[] = [];
+  private parameter: string = '';
   private svg: any;
   private margin = 50;
   private width = 750 - this.margin * 2;
@@ -42,7 +43,32 @@ export class ScatterPlotComponent implements OnInit {
     }
   };
 
+  onClick(event: any) {
+    console.log(event.currentTarget.id);
+
+    // Clear The Chart & Rebuild it
+    d3.selectAll('svg > *').remove();
+    // Build SVG according to chosen filter
+    const chosenParameter = Math.max.apply(
+      Math,
+      this.data.map(function (o) {
+        if (event.currentTarget.id === 'AverageDailyRainFall')
+          return Number(o.AverageDailyRainFall);
+        else if (event.currentTarget.id === 'AverageMinimumTemperature')
+          return Number(o.AverageMinimumTemperature);
+        else {
+          return Number(o.AbsoluteMaximumTemperature);
+        }
+      })
+    );
+    this.buildSvg();
+    this.addXandYAxis(chosenParameter);
+    this.drawLines(event.currentTarget.id);
+  }
+
   async onChange(newValue: any) {
+    // Clear SVG
+    d3.selectAll('svg > *').remove();
     this.selectedCity = newValue;
     const response = await this.weatherApi.getWeatherByCity(newValue);
     const { data } = await response.json();
@@ -57,12 +83,6 @@ export class ScatterPlotComponent implements OnInit {
         )
       );
     }
-
-    // Clear The Chart & Rebuild it
-    d3.selectAll('svg > *').remove();
-    this.buildSvg();
-    this.addXandYAxis();
-    this.drawLines();
   }
 
   buildSvg() {
@@ -73,7 +93,7 @@ export class ScatterPlotComponent implements OnInit {
       .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')');
   }
 
-  addXandYAxis() {
+  addXandYAxis(parameter: number) {
     // Range of data configuration
     this.x = d3Scale
       .scaleBand()
@@ -81,15 +101,7 @@ export class ScatterPlotComponent implements OnInit {
       .range([0, this.width]);
     this.y = d3Scale
       .scaleLinear()
-      .domain([
-        0,
-        Math.max.apply(
-          Math,
-          this.data.map(function (o) {
-            return Number(o.AbsoluteMaximumTemperature);
-          })
-        ),
-      ])
+      .domain([0, parameter])
       .nice()
       .range([this.height, 0]);
     // Configure the X Axis
@@ -104,23 +116,7 @@ export class ScatterPlotComponent implements OnInit {
       .call(d3Axis.axisLeft(this.y));
   }
 
-  drawBars() {
-    this.svg
-      .selectAll('bars')
-      .data(this.data)
-      .enter()
-      .append('rect')
-      .attr('x', (d: Month) => this.x(d.Name))
-      .attr('y', (d: Month) => this.y(d.AbsoluteMaximumTemperature))
-      .attr('width', this.x.bandwidth())
-      .attr(
-        'height',
-        (d: Month) => this.height - this.y(d.AbsoluteMaximumTemperature)
-      )
-      .attr('fill', '#1a9bd9');
-  }
-
-  drawLines() {
+  drawLines(chosenParameter: string) {
     this.svg
       .append('g')
       .attr('fill', 'white')
@@ -130,8 +126,19 @@ export class ScatterPlotComponent implements OnInit {
       .data(this.data)
       .join('circle')
       .attr('cx', (d: { Name: any }) => this.x(d.Name))
-      .attr('cy', (d: { AbsoluteMaximumTemperature: any }) =>
-        this.y(d.AbsoluteMaximumTemperature)
+      .attr(
+        'cy',
+        (d: {
+          AbsoluteMaximumTemperature: number;
+          AverageMinimumTemperature: number;
+          AverageDailyRainFall: number;
+        }) => {
+          if (chosenParameter === 'AbsoluteMaximumTemperature') {
+            return this.y(d.AbsoluteMaximumTemperature);
+          } else if (chosenParameter === 'AverageMinimumTemperature') {
+            return this.y(d.AverageMinimumTemperature);
+          } else return this.y(d.AverageDailyRainFall);
+        }
       )
       .attr('r', 3);
   }

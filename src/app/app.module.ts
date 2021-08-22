@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NgModule } from '@angular/core';
@@ -30,6 +31,7 @@ import { allAppRoutes } from './routes';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
+    MatButtonModule,
     MatPaginatorModule,
     MatTableModule,
     ReactiveFormsModule,
