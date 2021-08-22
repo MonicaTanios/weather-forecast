@@ -3,5 +3,5 @@
     <option *ngFor="let choice of this.cities">{{choice}}</option>
 </select>
 <br />
-<svg *ngIf="data.length != 0" width="900" height="500"></svg>
+<svg width="100%" height="50%"></svg>
 <app-mat-table *ngIf="data.length != 0" [data]="data"></app-mat-table>

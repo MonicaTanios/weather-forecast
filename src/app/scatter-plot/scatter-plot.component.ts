@@ -1,16 +1,7 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-  ViewContainerRef,
-  ViewRef,
-} from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import * as d3 from 'd3';
 import * as d3Axis from 'd3';
 import * as d3Scale from 'd3';
-import * as d3Shape from 'd3';
 
 import { Month } from '../models/month';
 import { WeatherApiService } from '../weather-api.service';
@@ -22,7 +13,6 @@ import { WeatherApiService } from '../weather-api.service';
 })
 export class ScatterPlotComponent implements OnInit {
   @Input() country: string = '';
-  @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
   @Output() data: Month[] = [];
   private svg: any;
   private margin = 50;
@@ -32,8 +22,6 @@ export class ScatterPlotComponent implements OnInit {
   public cities: string[] = [];
   private x: any;
   private y: any;
-  private line!: d3Shape.Line<[number, number]>;
-  childViewRef!: ViewRef;
 
   constructor(private weatherApi: WeatherApiService) {}
 
@@ -45,46 +33,47 @@ export class ScatterPlotComponent implements OnInit {
   getCitiesByCountry = async () => {
     const response = await fetch(
       'https://countriesnow.space/api/v0.1/countries'
-    ).then((response) => response.json());
-    const { data } = response;
-    data.forEach((country: any) => {
-      if (country.country == this.country) {
-        this.cities = country.cities;
+    );
+    const { data } = await response.json();
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].country === this.country) {
+        this.cities = data[i].cities;
       }
-    });
+    }
   };
 
-  onChange(newValue: any) {
+  async onChange(newValue: any) {
     this.selectedCity = newValue;
-    this.weatherApi.getWeatherByCity(newValue).subscribe((res: any) => {
-      // Loop over climate history by months
-      // & Fill months data in "data" variable
-      res.data.ClimateAverages[0].month.forEach((month: any) => {
-        this.data.push(
-          new Month(
-            month.name,
-            month.absMaxTemp,
-            month.avgDailyRainfall,
-            month.avgMinTemp
-          )
-        );
-      });
-    });
-    // Keep only new data (Last 12 items)
-    this.data.splice(0, this.data.length - 12);
+    const response = await this.weatherApi.getWeatherByCity(newValue);
+    const { data } = await response.json();
+    this.data = [];
+    for (let i = 0; i < data.ClimateAverages[0].month.length; i++) {
+      this.data.push(
+        new Month(
+          data.ClimateAverages[0].month[i].name,
+          data.ClimateAverages[0].month[i].absMaxTemp,
+          data.ClimateAverages[0].month[i].avgDailyRainfall,
+          data.ClimateAverages[0].month[i].avgMinTemp
+        )
+      );
+    }
+
     // Clear The Chart & Rebuild it
     d3.selectAll('svg > *').remove();
+    this.buildSvg();
     this.addXandYAxis();
     this.drawLines();
   }
 
-  addXandYAxis() {
+  buildSvg() {
     // Build SVG
     this.svg = d3
       .select('svg')
       .append('g')
       .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')');
+  }
 
+  addXandYAxis() {
     // Range of data configuration
     this.x = d3Scale
       .scaleBand()
