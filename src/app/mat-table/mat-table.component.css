@@ -1,6 +1,9 @@
 .mat-table {
   overflow-x: scroll;
-  max-width: 99%;
+}
+
+.mat-row:hover {
+  background-color: rgb(240, 240, 240);
 }
 
 .mat-cell,
@@ -9,4 +12,10 @@
   max-width: 50%;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.mat-elevation-z8 {
+  /* TODO: Edit this */
+  width: fit-content !important;
+  text-align: center !important;
 }

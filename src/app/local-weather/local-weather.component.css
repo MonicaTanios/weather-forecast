@@ -1,28 +1,92 @@
 .card {
-    background-color: rgba(255, 255, 255, 0.3);
-    border: 0.5px solid rgba(0, 0, 0, 0.125);
-    border-radius: 2rem;
-    background: url(https://res.cloudinary.com/dxfq3iotg/image/upload/v1557323760/weather.svg) no-repeat center;
-    background-size: cover;
-    max-width: 40rem;
+  background-color: #ababab;
+  border: 0.5px solid rgba(0, 0, 0, 0.125);
+  border-radius: 2rem;
+  background: url("../../assets/clouds.jpg") no-repeat center;
+  background-size: cover;
 }
 
-h4 {
-    font-weight: 500
+.small-img {
+  width: 20%;
+  height: 60%;
 }
 
-i {
-    font-size: 2rem;
+.current-weather {
+  color: rgba(0, 0, 113);
+}
+
+.address {
+  text-align: justify;
 }
 
 .text-gray {
-    color: #969696
+  color: #969696;
+  font-size: 1.5rem;
 }
 
-.card-weather .weakly-weather .weakly-weather-item {
-    border-right: 1px solid rgba(0, 0, 0, 0.125);
-    padding: 1rem;
-    text-align: center;
-    min-width: 25%;
+.page-content {
+  text-align: center;
 }
 
+.page-content-dashboard {
+  text-align: center !important;
+  /* text-align: -webkit-center; */
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 320px) {
+  .current-weather {
+    font-size: 2.5rem;
+    font-weight: 400;
+  }
+  mat-card {
+    width: 7rem;
+  }
+}
+@media screen and (min-width: 1204px) {
+  .current-weather {
+    font-size: 4.5rem;
+    font-weight: 500;
+  }
+  .page-content {
+    max-width: 40%;
+  }
+  .page-content-dashboard {
+    min-width: 60%;
+  }
+  mat-card {
+    width: 11rem;
+  }
+}
+
+mat-card-header {
+  float: right;
+}
+
+mat-card {
+  background-color: rgb(214, 238, 255);
+  border-radius: 1rem;
+}
+
+mat-card-content > h4 {
+  font-weight: 500;
+  float: left !important;
+}
+
+mat-card-content > p {
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+h4 {
+  font-weight: 400;
+}
+
+h3 {
+  color: rgba(0, 0, 113);
+  font-weight: 400;
+}

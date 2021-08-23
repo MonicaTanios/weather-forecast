@@ -1,50 +1,73 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="row">
-<div class="page-content p-3 col">
-    <div class="col-lg">
+<div class="row p-3">
+    <div class="page-content col-xs-1 col-md">
+        <h3>Current Weather</h3>
+        <br>
         <div class="card card-weather">
             <div class="card-body">
-                <h2>You are now in:</h2>
-                <h4> {{this.display_name}}</h4>
-                <br />
                 <div>
-                    <h3> {{this.day}} </h3>
+                    <h3> Today </h3>
                     <p class="text-gray">
-                        <span>{{this.weatherData?.data.weather[0].date}} </span>
+                        <span>{{ this.day }} {{ this.weatherData?.data.weather[0].date }}</span>
                     </p>
                 </div>
-                <div class="d-flex">
-                    <h4 class="display-3">{{this.weatherData?.data.current_condition[0].temp_C}}°C </h4>
-                </div>
-            </div>
-            <div class="card-body p-0">
-                <div class="d-flex weakly-weather">
-                    <div class="weakly-weather-item">
-                        <p class="mb-1"> Humidity </p>
-                        <i class="fa fa-tint"></i>
-                        <p class="mb-0"> {{this.weatherData?.data.weather[0].hourly[0].humidity}}% </p>
-                    </div>
-                    <div class="weakly-weather-item">
-                        <p class="mb-1"> Pressure </p>
-                        <i class="fa fa-compass"></i>
-                        <p class="mb-0"> {{this.weatherData?.data.weather[0].hourly[0].pressure}} </p>
-                    </div>
-                    <div class="weakly-weather-item">
-                        <p class="mb-1"> Cloud Cover </p>
-                        <i class="fa fa-cloud"></i>
-                        <p class="mb-0"> {{this.weatherData?.data.weather[0].hourly[0].cloudcover}} </p>
-                    </div>
-                    <div class="weakly-weather-item">
-                        <p class="mb-1"> Chance of Rain </p>
-                        <i class="fa fa-umbrella"></i>
-                        <p class="mb-0"> {{this.weatherData?.data.weather[0].hourly[0].chanceofrain}} </p>
-                    </div>
+                <p class="current-weather">
+                    <img class="small-img" src="../../assets/weather.png" alt="">
+                    {{this.weatherData?.data.current_condition[0].temp_C}}°C
+                </p>
+                <div class="address">
+                    <p class="text-gray">
+                        <span>You are now in:</span>
+                    </p>
+                    <h4>{{ this.display_name }}</h4>
                 </div>
             </div>
         </div>
+        <br>
+        <div class="cards">
+            <!-- HUMIDITY -->
+            <mat-card>
+                <mat-card-header>
+                    <i class="fa fa-tint"></i>
+                </mat-card-header>
+                <mat-card-content>
+                    <h4> {{this.weatherData?.data.weather[0].hourly[0].humidity}}% </h4>
+                    <p> Humidity </p>
+                </mat-card-content>
+            </mat-card>
+            <!-- Pressure -->
+            <mat-card>
+                <mat-card-header>
+                    <i class="fa fa-compass"></i>
+                </mat-card-header>
+                <mat-card-content>
+                    <h4> {{this.weatherData?.data.weather[0].hourly[0].pressure}} </h4>
+                    <p> Pressure </p>
+                </mat-card-content>
+            </mat-card>
+            <!-- Cloud Cover -->
+            <mat-card>
+                <mat-card-header>
+                    <i class="fa fa-cloud"></i>
+                </mat-card-header>
+                <mat-card-content>
+                    <h4> {{this.weatherData?.data.weather[0].hourly[0].cloudcover}} </h4>
+                    <p> Cloud Cover </p>
+                </mat-card-content>
+            </mat-card>
+            <!-- Chance of Rain -->
+            <mat-card>
+                <mat-card-header>
+                    <i class="fa fa-umbrella"></i>
+                </mat-card-header>
+                <mat-card-content>
+                    <h4> {{this.weatherData?.data.weather[0].hourly[0].chanceofrain}} </h4>
+                    <p> Rain Chance </p>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </div>
-</div>
-    <div class="col">
+    <div class="page-content-dashboard col-xs-1 col-md">
+        <h3>City Weather Dashboard</h3>
         <app-scatter-plot [country]="country"></app-scatter-plot>
     </div>
 </div>

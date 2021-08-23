@@ -1,13 +1,19 @@
-<h3>Choose city</h3>
-<select [ngModel]="selectedCity" class="form-select" (ngModelChange)="onChange($event)" name="sel2" >
-    <option *ngFor="let choice of this.cities">{{choice}}</option>
-</select>
+<div class="row">
+    <div class="col">
+        <h4>Please Choose a City</h4>
+    </div>
+    <div class="col">
+        <select [ngModel]="selectedCity" class="form-select" (ngModelChange)="onChange($event)" name="sel2" >
+            <option *ngFor="let choice of this.cities">{{choice}}</option>
+        </select>
+    </div>
+</div>
 <br />
 <h5 *ngIf="selectedCity" >{{selectedCity}}'s History</h5>
 <app-mat-table *ngIf="data.length != 0" [data]="data"></app-mat-table>
 <br />
-<h5 *ngIf="selectedCity" >Please choose a filter</h5>
-<div *ngIf="selectedCity" class="col">
+<div *ngIf="selectedCity" class="choose-filter">
+    <h5>Please choose a filter</h5>
     <div class="row">
         <button mat-raised-button (click)="onClick($event)" id="AverageDailyRainFall">AverageDailyRainFall</button>
     </div>
@@ -18,5 +24,4 @@
         <button mat-raised-button (click)="onClick($event)" id="AbsoluteMaximumTemperature">AbsoluteMaximumTemperature</button>
     </div>
 </div>
-
-<svg width="100%" height="50%"></svg>
+<svg></svg>

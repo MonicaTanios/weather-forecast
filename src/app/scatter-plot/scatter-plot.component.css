@@ -1,3 +1,21 @@
 button {
-  max-width: 50%;
+  max-width: 30%;
+  background-color: rgb(214, 238, 255);
+}
+
+h4 {
+  font-weight: 400;
+}
+
+app-mat-table {
+  text-align: -webkit-match-parent;
+}
+
+svg {
+  height: 100%;
+  width: 100%;
+}
+
+.chosen-filter {
+  text-align: center !important;
 }
