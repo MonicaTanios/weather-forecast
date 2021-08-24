@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -32,7 +31,6 @@ import { allAppRoutes } from './routes';
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
-    MatPaginatorModule,
     MatTableModule,
     ReactiveFormsModule,
     RouterModule.forRoot(allAppRoutes),
