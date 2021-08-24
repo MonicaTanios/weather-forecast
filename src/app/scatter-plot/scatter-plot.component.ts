@@ -44,8 +44,6 @@ export class ScatterPlotComponent implements OnInit {
   };
 
   onClick(event: any) {
-    console.log(event.currentTarget.id);
-
     // Clear The Chart & Rebuild it
     d3.selectAll('svg > *').remove();
     // Build SVG according to chosen filter

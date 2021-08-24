@@ -27,47 +27,56 @@
             <!-- HUMIDITY -->
             <mat-card>
                 <mat-card-header>
-                    <i class="fa fa-tint"></i>
+                    <div mat-card-avatar class="card-icon">
+                        <i class="fa fa-tint fa-10x"></i>
+                    </div>
+                    <mat-card-title>
+                        <h1> {{this.weatherData?.data.weather[0].hourly[0].humidity}}% </h1>
+                    </mat-card-title>
+                    <mat-card-subtitle><h5>Humidity</h5></mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-content>
-                    <h4> {{this.weatherData?.data.weather[0].hourly[0].humidity}}% </h4>
-                    <p> Humidity </p>
-                </mat-card-content>
             </mat-card>
             <!-- Pressure -->
             <mat-card>
                 <mat-card-header>
-                    <i class="fa fa-compass"></i>
+                    <div mat-card-avatar class="card-icon">
+                        <i class="fa fa-compass fa-10x"></i>
+                    </div>
+                    <mat-card-title>
+                        <h1> {{this.weatherData?.data.weather[0].hourly[0].pressure}} </h1>
+                    </mat-card-title>
+                    <mat-card-subtitle><h5>Pressure</h5></mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-content>
-                    <h4> {{this.weatherData?.data.weather[0].hourly[0].pressure}} </h4>
-                    <p> Pressure </p>
-                </mat-card-content>
             </mat-card>
             <!-- Cloud Cover -->
             <mat-card>
                 <mat-card-header>
-                    <i class="fa fa-cloud"></i>
+                    <div mat-card-avatar class="card-icon">
+                        <i class="fa fa-cloud fa-10x"></i>
+                    </div>
+                    <mat-card-title>
+                        <h1> {{this.weatherData?.data.weather[0].hourly[0].cloudcover}}% </h1>
+                    </mat-card-title>
+                    <mat-card-subtitle><h5>Cloud Cover</h5></mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-content>
-                    <h4> {{this.weatherData?.data.weather[0].hourly[0].cloudcover}} </h4>
-                    <p> Cloud Cover </p>
-                </mat-card-content>
             </mat-card>
             <!-- Chance of Rain -->
             <mat-card>
                 <mat-card-header>
-                    <i class="fa fa-umbrella"></i>
+                    <div mat-card-avatar class="card-icon">
+                        <i class="fa fa-umbrella fa-10x"></i>
+                    </div>
+                    <mat-card-title>
+                        <h1> {{this.weatherData?.data.weather[0].hourly[0].chanceofrain}}% </h1>
+                    </mat-card-title>
+                    <mat-card-subtitle><h5>Rain Chance</h5></mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-content>
-                    <h4> {{this.weatherData?.data.weather[0].hourly[0].chanceofrain}} </h4>
-                    <p> Rain Chance </p>
-                </mat-card-content>
             </mat-card>
         </div>
     </div>
     <div class="page-content-dashboard col-xs-1 col-md">
         <h3>City Weather Dashboard</h3>
+        <br>
         <app-scatter-plot [country]="country"></app-scatter-plot>
     </div>
 </div>

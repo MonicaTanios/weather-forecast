@@ -35,6 +35,5 @@ export class MatTableComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.tableDataSrc.data = changes.data.currentValue;
-    this.tableDataSrc.paginator = this.paginator;
   }
 }

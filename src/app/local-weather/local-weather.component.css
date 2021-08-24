@@ -45,6 +45,19 @@
   }
   mat-card {
     width: 7rem;
+    height: 30%;
+  }
+  .cards {
+    height: 60%;
+  }
+  .card-icon {
+    font-size: medium;
+  }
+  mat-card-title > h1 {
+    font-size: larger;
+  }
+  mat-card-subtitle > h5 {
+    font-size: large;
   }
 }
 @media screen and (min-width: 1204px) {
@@ -59,12 +72,14 @@
     min-width: 60%;
   }
   mat-card {
-    width: 11rem;
+    width: min-content;
   }
-}
-
-mat-card-header {
-  float: right;
+  .cards {
+    height: max-content;
+  }
+  .card-icon {
+    font-size: xx-large;
+  }
 }
 
 mat-card {

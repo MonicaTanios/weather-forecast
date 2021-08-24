@@ -1,6 +1,5 @@
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="tableDataSrc">
-
         <ng-container mat matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let month">{{ month.Name }}</td>
@@ -23,7 +22,6 @@
 
         <tr mat-header-row *matHeaderRowDef="tableCols"></tr>
         <tr mat-row *matRowDef="let row; columns: tableCols"></tr>
-
     </table>
-    <!-- <mat-paginator [pageSize]="3" [hidePageSize]="true"></mat-paginator> -->
+    <!-- <mat-paginator [pageSize]="3"></mat-paginator> -->
 </div>
