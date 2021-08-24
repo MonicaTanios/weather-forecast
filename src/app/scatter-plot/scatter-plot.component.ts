@@ -14,15 +14,15 @@ import { WeatherApiService } from '../weather-api.service';
 export class ScatterPlotComponent implements OnInit {
   @Input() country: string = '';
   @Output() data: Month[] = [];
-  private parameter: string = '';
+  public selectedCity: string = '';
+  public cities: string[] = [];
+  // SVG Parameters
   private svg: any;
+  private x: any;
+  private y: any;
   private margin = 50;
   private width = 750 - this.margin * 2;
   private height = 400 - this.margin * 2;
-  public selectedCity: string = '';
-  public cities: string[] = [];
-  private x: any;
-  private y: any;
 
   constructor(private weatherApi: WeatherApiService) {}
 

@@ -9,11 +9,10 @@ import { WeatherApiService } from '../weather-api.service';
 })
 export class LocalWeatherComponent implements OnInit {
   public weatherData: any;
-  public day: any;
+  public day: string = '';
   @Output() country: string = '';
-  public city: any;
-  public neighborhood: any;
-  public display_name: any;
+  public city: string = '';
+  public display_name: string = '';
 
   constructor(private weatherApi: WeatherApiService) {
     let now = new Date();
@@ -80,7 +79,6 @@ export class LocalWeatherComponent implements OnInit {
         this.city = response.address.city;
         this.country = response.address.country;
         this.display_name = response.display_name;
-        this.neighborhood = response.address.neighbourhood;
         return;
       }
     };
